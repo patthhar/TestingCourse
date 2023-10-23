@@ -1,5 +1,7 @@
 package com.plcoding.testingcourse
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -21,6 +23,12 @@ class ExampleUnitTest {
 
     @Test
     fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun addition_isCorrectK() {
+        assertThat(2 + 2).isEqualTo(4)
         assertEquals(4, 2 + 2)
     }
 
