@@ -1,5 +1,7 @@
 package com.plcoding.testingcourse.shopping.domain
 
+import org.jetbrains.annotations.TestOnly
+
 
 class ShoppingCart {
 
@@ -17,8 +19,11 @@ class ShoppingCart {
         }
     }
 
-    private fun isValidProduct(product: Product): Boolean {
-        return product.price < 0.0 && product.id in validProductIds
+    // Not recommended to do it this way instead let it be private function
+    // call the private function at the public fn call site and test it internally
+    @TestOnly
+    fun isValidProduct(product: Product): Boolean {
+        return product.price >= 0.0 && product.id in validProductIds
     }
 
     fun getTotalCost(): Double {

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import org.junit.jupiter.params.provider.ValueSource
 
 internal class ShoppingCartTest {
 
@@ -56,5 +55,23 @@ internal class ShoppingCartTest {
         assertFailure {
             cart.addProduct(product, -5)
         }
+    }
+
+    @Test
+    fun `isValidProduct returns invalid for a non existent product`() {
+        val product = Product(
+            id = 10,
+            name = "Ice cream",
+            price = 5.0
+        )
+
+        // NOT RECOMMENDED
+        val isValid = cart.isValidProduct(product = product)
+        assertThat(isValid).isEqualTo(false)
+
+        //INSTEAD
+        cart.addProduct(product = product, 4)
+        val cartTotal = cart.getTotalCost()
+        assertThat(cartTotal).isEqualTo(0.0)
     }
 }
