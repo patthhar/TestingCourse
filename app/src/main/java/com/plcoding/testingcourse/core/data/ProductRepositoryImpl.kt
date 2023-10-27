@@ -8,7 +8,7 @@ import java.util.concurrent.CancellationException
 
 class ProductRepositoryImpl(
     private val productApi: ProductApi,
-): ProductRepository {
+) : ProductRepository {
 
     override suspend fun purchaseProducts(products: List<Product>): Result<Unit> {
         return try {
@@ -18,15 +18,24 @@ class ProductRepositoryImpl(
             Result.success(Unit)
         } catch (e: HttpException) {
             Result.failure(e)
-        } catch(e: IOException) {
+        } catch (e: IOException) {
             Result.failure(e)
         } catch (e: Exception) {
-            if(e is CancellationException) throw e
+            if (e is CancellationException) throw e
             Result.failure(e)
         }
     }
 
-    override suspend fun cancelPurchase(purchaseId: String): Result<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun cancelPurchase(purchaseId: Int): Result<Unit> {
+        return try {
+            productApi.cancelPurchase(purchaseId.toString())
+            Result.success(Unit)
+        } catch (e: HttpException) {
+            Result.failure(e)
+        } catch (e: IOException) {
+            Result.failure(e)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }

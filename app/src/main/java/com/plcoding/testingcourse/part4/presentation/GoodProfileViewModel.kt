@@ -12,6 +12,7 @@ class GoodProfileViewModel(
     private val analytics: AnalyticsLogger
 ) : ViewModel() {
 
+    // To be observed by the ui layer
     var state by mutableStateOf(GoodProfileState())
         private set
 
